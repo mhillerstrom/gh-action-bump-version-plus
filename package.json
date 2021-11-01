@@ -1,17 +1,18 @@
 {
-  "name": "gh-action-bump-version",
-  "version": "9.0.8",
+  "name": "gh-action-bump-version-plus",
+  "description": "An extended `gh-action-bump-version` GitHub Action",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/phips28/gh-action-bump-version.git"
+    "url": "git+https://github.com/mhillerstrom/gh-action-bump-version-plus.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/phips28/gh-action-bump-version/issues"
+    "url": "https://github.com/mhillerstrom/gh-action-bump-version-plus/issues"
   },
-  "homepage": "https://github.com/phips28/gh-action-bump-version#readme",
+  "homepage": "https://github.com/mhillerstrom/gh-action-bump-version-plus#readme",
   "private": true,
   "main": "index.js",
   "scripts": {

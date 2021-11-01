@@ -1,12 +1,16 @@
-## gh-action-bump-version
+<!-- markdownlint-disable MD041 -->
+## gh-action-bump-version-plus
 
 GitHub Action for automated npm version bump.
+
+> This is a extension of [`gh-action-bump-version`](https://github.com/phips28/gh-action-bump-version) by `phips28`.
 
 This Action bumps the version in package.json and pushes it back to the repo.
 It is meant to be used on every successful merge to master but
 you'll need to configured that workflow yourself. You can look to the
 [`.github/workflows/push.yml`](./.github/workflows/push.yml) file in this project as an example.
 
+<!-- markdownlint-disable MD036 -->
 **Attention**
 
 Make sure you use the `actions/checkout@v2` action!
@@ -14,7 +18,8 @@ Make sure you use the `actions/checkout@v2` action!
 **Migration: Version v9 and up**
 
 Remove the 'actions/setup-node@v1' step from your action.yml file
-```
+
+```yaml
       - name: 'Setup Node.js'
         uses: 'actions/setup-node@v1'
         with:
@@ -33,8 +38,11 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 * Push the bumped npm version in package.json back into the repo.
 * Push a tag for the new version back into the repo.
 
+<!-- markdownlint-disable MD026 -->
 ### Usage:
+
 **tag-prefix:** Prefix that is used for the git tag  (optional). Example:
+
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'phips28/gh-action-bump-version@master'
@@ -45,6 +53,7 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 ```
 
 **skip-tag:** The tag is not added to the git repository  (optional). Example:
+
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'phips28/gh-action-bump-version@master'
@@ -55,6 +64,7 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 ```
 
 **default:** Set a default version bump to use  (optional - defaults to patch). Example:
+
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'phips28/gh-action-bump-version@master'
@@ -65,6 +75,7 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 ```
 
 **preid:** Set a preid value will building prerelease version  (optional - defaults to 'rc'). Example:
+
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'phips28/gh-action-bump-version@master'
@@ -76,6 +87,7 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 ```
 
 **wording:** Customize the messages that trigger the version bump. It must be a string, case sensitive, coma separated  (optional). Example:
+
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'phips28/gh-action-bump-version@master'
@@ -90,6 +102,7 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 ```
 
 **PACKAGEJSON_DIR:** Param to parse the location of the desired package.json (optional). Example:
+
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'phips28/gh-action-bump-version@master'
@@ -99,6 +112,7 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 ```
 
 **TARGET-BRANCH:** Set a custom target branch to use when bumping the version. Useful in cases such as updating the version on master after a tag has been set (optional). Example:
+
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'phips28/gh-action-bump-version@master'
@@ -109,6 +123,7 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 ```
 
 **commit-message:** Set a custom commit message for version bump commit. Useful for skipping additional workflows run on push. Example:
+
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'phips28/gh-action-bump-version@master'
@@ -119,6 +134,7 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 ```
 
 **push:** Set false you want to avoid pushing the new version tag/package.json. Example:
+
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'phips28/gh-action-bump-version@master'
