@@ -17,6 +17,6 @@
 
 ```
 ## Message
-pre-rc
+no keywords
 ## Expectation
-- **Version:** 3.0.1-rc.0
+- **Version:** 1.0.1
