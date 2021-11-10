@@ -2,7 +2,7 @@
 ## .github/workflows/push.yml
 ```YAML
 |
-  name: Bump Version (Custom Wording)
+  name: Bump Version Plus
   'on':
     push: null
   jobs:
@@ -14,13 +14,9 @@
           uses: ./action
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            minor-wording: custom-minor
-            major-wording: custom-major
-            rc-wording: custom-pre
 
 ```
 ## Message
-custom-minor
+no keywords
 ## Expectation
-- **Version:** 3.1.0
+- **Version:** 1.0.1
