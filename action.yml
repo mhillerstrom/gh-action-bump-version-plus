@@ -5,7 +5,7 @@ runs:
   main: index.js
 branding:
   icon: chevrons-up
-  color: goldenrod
+  color: yellow
 inputs:
   tag-prefix:
     description: 'Prefix that is used for the git tag'
