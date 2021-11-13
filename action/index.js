@@ -136,27 +136,25 @@ const workspace = process.env.GITHUB_WORKSPACE;
     ]);
 
     let currentBranch = /refs\/[a-zA-Z]+\/(.*)/.exec(process.env.GITHUB_REF)[1];
-    console.log('currentBranch(1):', currentBranch);
     let isPullRequest = false;
     if (process.env.GITHUB_HEAD_REF) {
       // Comes from a pull request
       currentBranch = process.env.GITHUB_HEAD_REF;
       isPullRequest = true;
     }
-    console.log('currentBranch(2):', currentBranch);
     if (process.env['INPUT_TARGET-BRANCH']) {
       // We want to override the branch that we are pulling / pushing to
       currentBranch = process.env['INPUT_TARGET-BRANCH'];
     }
-    console.log('currentBranch(3):', currentBranch);
+    console.log('currentBranch:', currentBranch);
     // do it in the current checked out github branch (DETACHED HEAD)
     // important for further usage of the package.json version
     await Promise.all(packageDirs.map(pDir => runInSubWorkspace('npm', pDir, ['version', '--allow-same-version=true', '--git-tag-version=false', current])) );
-    //TODO: remove original: await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
+    //TODO: await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
     console.log('current(1):', current, '/', 'version:', version);
     let newVersion = '';
     packageDirs.forEach(pDir => { newVersion = execSync(`npm version --git-tag-version=false ${version}`, {cwd: path.join(workspace, pDir)}).toString().trim().replace(/^v/, '') });
-    //TODO: remove original: newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
+    //TODO: newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
     console.log(`newVersion(1) = ${newVersion}`);
     newVersion = `${tagPrefix}${newVersion}`;
     try {
@@ -172,10 +170,10 @@ const workspace = process.env.GITHUB_WORKSPACE;
     }
     await runInWorkspace('git', ['checkout', currentBranch]);
     await Promise.all(packageDirs.map(pDir => runInSubWorkspace('npm', pDir, ['version', '--allow-same-version=true', '--git-tag-version=false', current])) );
-    //TODO: remove original: await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
+    //TODO: await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
     console.log('current(2):', current, '/', 'version:', version);
     packageDirs.forEach(pDir => { newVersion = execSync(`npm version --git-tag-version=false ${version}`, {cwd: path.join(workspace, pDir)}).toString().trim().replace(/^v/, '') });
-    //TODO: remove original: newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
+    //TODO: newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
     console.log(`newVersion(2) = ${newVersion}`);
     if (isLernaRepo) {
       pkg.version = newVersion;

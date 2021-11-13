@@ -20,7 +20,7 @@
     "test": "npm run end-to-end-test",
     "end-to-end-test-old": "jest --roots=tests/end-to-end --testTimeout=300000 --runInBand --detectOpenHandles",
     "end-to-end-test": "jest --roots=tests/end-to-end --testTimeout=300000",
-    "clean": "rm -rf packages node_modules lerna.json"
+    "clean": "rm -rf packages node_modules test-repo lerna.json"
   },
   "dependencies": {},
   "devDependencies": {

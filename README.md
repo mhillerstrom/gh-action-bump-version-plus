@@ -3,7 +3,10 @@
 
 GitHub Action for automated npm version bump.
 
-> This is a extension of [`gh-action-bump-version`](https://github.com/phips28/gh-action-bump-version) by `phips28`.
+> This is a extension of
+> [`gh-action-bump-version`](https://github.com/phips28/gh-action-bump-version)
+> by `phips28` and a further development of the testing principles of
+> `melody-universe`.
 
 This Action bumps the version in package.json and pushes it back to the repo.
 It is meant to be used on every successful merge to master but
@@ -143,3 +146,31 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
   with:
     push: false
 ```
+
+### Testing
+
+To be able to run the tests locally, you will have to create two repos for this sole
+purpose with a personal access token (PAT) and create a local `.env` file with
+contents like:
+
+``` sh
+TEST_REPO=https://github.com/xxx/gh-action-bump-version-plus-test.git
+TEST_REPO=https://github.com/xxx/gh-action-bump-version-plus-lerna-test.git
+TEST_USER=xxx
+TEST_TOKEN=ghp_XXXBe6bFaUp5rhOCFSiEah0PyC710xXy57yyy
+RUNNER_TEMP=../tmp
+```
+
+In order to make all tests pass you will have to make a secret `TEST_TOKEN` in
+both repositories (can be same PAT as above). `RUNNER_TEMP` must be a directory
+separate from the working directory of this GitHub Action.
+
+After this all you need to do is:
+
+``` sh
+npm run test
+```
+
+lay back and watch the tests run. Any `console.log()` statements in `index.js` will be available in the actions output (see actions tab on GitHub).
+
+Happy debugging! 😄

@@ -1,14 +1,14 @@
 const { default: fetch } = require('node-fetch');
 
-async function clearWorkflowRuns() {
-  const runs = await getWorkflowRuns();
-  const basePath = getActionsBasePath();
-  await Promise.all(runs.map((run) => api(`${basePath}/runs/${run.id}`, { method: 'DELETE' })));
+async function clearWorkflowRuns(repo, username, token) {
+  const runs = await getWorkflowRuns(repo, username, token);
+  const basePath = getActionsBasePath(repo);
+  await Promise.all(runs.map((run) => api(`${basePath}/runs/${run.id}`, { method: 'DELETE' }, username, token)));
 }
 exports.clearWorkflowRuns = clearWorkflowRuns;
 
-async function getMostRecentWorkflowRun() {
-  const runs = await getWorkflowRuns();
+async function getMostRecentWorkflowRun(repo, username, token) {
+  const runs = await getWorkflowRuns(repo, username, token);
   if (runs.length === 0) {
     return null;
   }
@@ -25,21 +25,14 @@ async function getMostRecentWorkflowRun() {
 }
 exports.getMostRecentWorkflowRun = getMostRecentWorkflowRun;
 
-async function getWorkflowRun(id) {
-  const basePath = getActionsBasePath();
-  const run = await api(`${basePath}/runs/${id}`);
-  return run;
-}
-exports.getWorkflowRun = getWorkflowRun;
-
-async function getWorkflowRuns() {
-  const basePath = getActionsBasePath();
-  const result = await api(`${basePath}/runs`);
+async function getWorkflowRuns(repo, username, token) {
+  const basePath = getActionsBasePath(repo);
+  const result = await api(`${basePath}/runs`, {}, username, token);
   return result.workflow_runs || [];
 }
+exports.getWorkflowRuns = getWorkflowRuns;
 
-function getActionsBasePath() {
-  const repoUrl = process.env.TEST_REPO;
+function getActionsBasePath(repoUrl) {
   const match = /\/([^/]*)\/([^/]*)\.git$/.exec(repoUrl);
   const owner = match[1];
   const repo = match[2];
@@ -49,10 +42,8 @@ function getActionsBasePath() {
 const retryAttempts = 10;
 const retryInterval = 10;
 
-async function api(path, options) {
-  options = options || {};
-  const username = process.env.TEST_USER;
-  const token = process.env.TEST_TOKEN;
+async function api(path, options = {}, username, token) {
+  // console.log(`api: path=${path}, options=${JSON.stringify(options)}, username=${username}, token=${token}`);
   for (let attempts = 0; attempts < retryAttempts; attempts++) {
     const response = await fetch(`https://api.github.com/${path}`, {
       method: options.method || 'GET',
