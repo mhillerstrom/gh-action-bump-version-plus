@@ -1,11 +1,11 @@
 name: Automated Version Bump Plus
-description: Automated version bump for npm packages / mono repos.
+description: Automated version bump for npm packages / Lerna mono repos.
 runs:
   using: node12
   main: index.js
 branding:
-  icon: chevron-up
-  color: blue
+  icon: chevrons-up
+  color: goldenrod
 inputs:
   tag-prefix:
     description: 'Prefix that is used for the git tag'

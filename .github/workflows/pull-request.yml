@@ -16,5 +16,6 @@ jobs:
       - run: npm run end-to-end-test
         env:
           TEST_REPO: ${{ secrets.TEST_REPO }}
+          TEST_LERNA_REPO: ${{ secrets.TEST_LERNA_REPO }}
           TEST_USER: ${{ secrets.TEST_USER }}
           TEST_TOKEN: ${{ secrets.TEST_TOKEN }}
