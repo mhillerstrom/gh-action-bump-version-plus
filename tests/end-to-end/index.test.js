@@ -10,7 +10,7 @@ EventEmitter.setMaxListeners(60);
 // Load environment variables from file '.env'
 dotenv.config();
 
-// Make sure necessary variables are set
+// Make sure necessary variables are set when running locally
 const vars = ['TEST_REPO', 'TEST_USER', 'TEST_TOKEN', 'TEST_LERNA_REPO', 'RUNNER_TEMP'];
 
 const checkVars = (vars) => vars.forEach(element => {
@@ -18,7 +18,8 @@ const checkVars = (vars) => vars.forEach(element => {
     throw new Error(`You must specify values for all environment variables: ${vars.join(',')}\nVariables values:\n\t` + vars.map(v => `${v} = ${env[v]}`).join('\n\t'));
   }
 });
-checkVars(vars);
+
+if (!env.CI) checkVars(vars);
 
 // Project root
 const projectRoot = join(__dirname, '..', '..');
