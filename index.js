@@ -21,7 +21,8 @@ const workspace = process.env.GITHUB_WORKSPACE;
   const packageDirs = (await Promise.all(globs.map(g => dirGlob(g)))).flatMap(x => x === '.' ? '' : x);
   console.log(`packageDirs = ${JSON.stringify(packageDirs)}`);
   pkg = pkg || getPackageJson();
-  console.log(`read version = ${pkg.version} from ${isLernaRepo?'lerna.json':'package.json'}`);
+  console.log(`read version = ${pkg.version} from ${isLernaRepo ? 'lerna.json' : 'package.json'}`);
+
   const event = process.env.GITHUB_EVENT_PATH ? require(process.env.GITHUB_EVENT_PATH) : {};
 
   if (!event.commits) {
@@ -170,7 +171,14 @@ const workspace = process.env.GITHUB_WORKSPACE;
       // First fetch to get updated local version of branch
       await runInWorkspace('git', ['fetch']);
     }
-    await runInWorkspace('git', ['checkout', currentBranch]);
+
+    //TODO: REMOVE try-catch + -B
+    try {
+      await runInWorkspace('git', ['checkout', currentBranch]);
+    } catch (err) {
+      await runInWorkspace('git', ['checkout', '-B', currentBranch]);
+    }
+
     await Promise.all(packageDirs.map(pDir => runInSubWorkspace('npm', pDir, ['version', '--allow-same-version=true', '--git-tag-version=false', current])) );
     //TODO: remove original: await runInWorkspace('npm', ['version', '--allow-same-version=true', '--git-tag-version=false', current]);
     console.log('current(2):', current, '/', 'version:', version);
