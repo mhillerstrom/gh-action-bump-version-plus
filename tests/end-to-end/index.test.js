@@ -1,7 +1,11 @@
 const dotenv = require('dotenv');
+const EventEmitter = require('events');
 const { join } = require('path');
 const { env } = require('process');
 const buildTest = require("./buildTest");
+
+// This is to avoid annoying warning in output
+EventEmitter.setMaxListeners(60);
 
 // Load environment variables from file '.env'
 dotenv.config();

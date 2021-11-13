@@ -9,6 +9,8 @@ setups:
           runs-on: ubuntu-latest
           steps:
             - uses: actions/checkout@v2
+            - run: echo "Bump Version"
+            - run: env
             - id: version-bump
               uses: ./action
               env:
@@ -48,6 +50,8 @@ setups:
           runs-on: ubuntu-latest
           steps:
             - uses: actions/checkout@v2
+            - run: echo "Do Nothing"
+            - run: env
             - id: version-bump
               uses: ./action
               env:
@@ -69,6 +73,8 @@ setups:
           runs-on: ubuntu-latest
           steps:
             - uses: actions/checkout@v2
+            - run: echo "Bump Version (Custom Wording)"
+            - run: env
             - id: version-bump
               uses: ./action
               env:
@@ -97,6 +103,8 @@ setups:
           runs-on: ubuntu-latest
           steps:
             - uses: actions/checkout@v2
+            - run: echo "Bump Version (Default='Minor')"
+            - run: env
             - id: version-bump
               uses: ./action
               env:
@@ -121,6 +129,8 @@ setups:
           runs-on: ubuntu-latest
           steps:
             - uses: actions/checkout@v2
+            - run: echo "Bump Version (Custom Tag Prefix)"
+            - run: env
             - id: version-bump
               uses: ./action
               env:
@@ -142,6 +152,8 @@ setups:
           runs-on: ubuntu-latest
           steps:
             - uses: actions/checkout@v2
+            - run: echo "Bump Version (Target Branch)"
+            - run: env
             - run: git branch other-branch
             - id: version-bump
               uses: ./action
@@ -166,6 +178,8 @@ setups:
             - uses: actions/checkout@v2
               with:
                 token: ${{ secrets.TEST_TOKEN }}
+            - run: echo "Bump Version (Custom Checkout Token)"
+            - run: env
             - id: version-bump
               uses: ./action
               env:

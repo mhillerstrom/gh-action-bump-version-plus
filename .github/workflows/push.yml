@@ -1,4 +1,4 @@
-name: 'Bump Version'
+name: 'Bump Version Plus'
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   bump-version:
-    name: 'Bump Version on master'
+    name: 'Bump version on master'
     runs-on: ubuntu-latest
 
     steps:
