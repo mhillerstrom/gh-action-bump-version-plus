@@ -1,7 +1,7 @@
 {
   "name": "gh-action-bump-version-plus",
   "description": "An extended `gh-action-bump-version` GitHub Action",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mhillerstrom/gh-action-bump-version-plus.git"
