@@ -173,7 +173,7 @@ contents like:
 
 ``` sh
 TEST_REPO=https://github.com/xxx/gh-action-bump-version-plus-test.git
-TEST_REPO=https://github.com/xxx/gh-action-bump-version-plus-lerna-test.git
+TEST_LERNA_REPO=https://github.com/xxx/gh-action-bump-version-plus-lerna-test.git
 TEST_USER=xxx
 TEST_TOKEN=ghp_XXXBe6bFaUp5rhOCFSiEah0PyC710xXy57yyy
 RUNNER_TEMP=../tmp
@@ -193,3 +193,7 @@ lay back and watch the tests run. Any `console.log()` statements in `index.js`
 will be available in the actions output (see actions tab on GitHub).
 
 Happy debugging! 😄
+
+> To be able to merge changes in your own copy of this repo you must add
+> `TEST_REPO`, `TEST_LERNA_REPO`, `TEST_USER`, and `TEST_TOKEN` as repository
+> secrets.
