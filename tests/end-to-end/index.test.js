@@ -19,7 +19,7 @@ const checkVars = (vars) => vars.forEach(element => {
   }
 });
 
-if (!env.CI) checkVars(vars);
+checkVars(vars);
 
 // Project root
 const projectRoot = join(__dirname, '..', '..');
