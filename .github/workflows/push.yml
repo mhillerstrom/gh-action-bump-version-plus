@@ -3,11 +3,11 @@ name: 'Bump Version Plus'
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
 
 jobs:
   bump-version:
-    name: 'Bump version on main'
+    name: 'Bump version on master'
     runs-on: ubuntu-latest
 
     steps:
@@ -24,6 +24,8 @@ jobs:
           tag-prefix: 'v'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'cat package.json'
+        run: cat ./package.json
       - name: 'Output Step'
         env:
           NEW_TAG: ${{ steps.version-bump.outputs.newTag }}

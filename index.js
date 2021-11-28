@@ -31,6 +31,16 @@ const workspace = process.env.GITHUB_WORKSPACE;
 
   const tagPrefix = process.env['INPUT_TAG-PREFIX'] || '';
   const messages = event.commits ? event.commits.map((commit) => `${commit.message}\n${commit.body}`) : [];
+  
+  // Should we bail-out because of a text in commit message?
+  const checkMessage = process.env['INPUT_SKIP-IF-COMMIT-CONTAINS'].toLowerCase();
+  if (checkMessage != '') {
+    const messagesString = messages.join(',').toLowerCase();
+    if (messagesString.indexOf(checkMessage) > -1) {
+      exitSuccess(`No action necessary because we found '${checkMessage}' in commit message!`);
+      return;
+    }
+  }
 
   const commitMessage = process.env['INPUT_COMMIT-MESSAGE'] || 'ci: version bump to {{version}}';
   console.log('commit messages:', messages);

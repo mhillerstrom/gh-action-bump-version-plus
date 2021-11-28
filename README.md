@@ -10,7 +10,9 @@ GitHub Action for automated npm version bump.
 
 > As the `plus` indicates this action will do all what `gh-action-bump-version`
 > does plus some handling of Lerna mono repos. For Lerna mono repos we
-> __always__ bump all packages in the mono repo.
+> ___always___ bump all packages in the mono repo.
+>
+> Additionally, we introduce a parameter `skip-if-commit-contains` (see below).
 
 This Action bumps the version in `package.json` and pushes it back to the repo. It
 is meant to be used on every successful merge to master but you'll need to
@@ -57,8 +59,8 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 **tag-prefix:** Prefix that is used for the git tag  (optional). Example:
 
 ```yaml
-- name:  'Automated Version Bump'
-  uses:  'phips28/gh-action-bump-version@master'
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
@@ -68,8 +70,8 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 **skip-tag:** The tag is not added to the git repository  (optional). Example:
 
 ```yaml
-- name:  'Automated Version Bump'
-  uses:  'phips28/gh-action-bump-version@master'
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
@@ -80,8 +82,8 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 Example:
 
 ```yaml
-- name:  'Automated Version Bump'
-  uses:  'phips28/gh-action-bump-version@master'
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
@@ -92,8 +94,8 @@ Example:
 defaults to 'rc'). Example:
 
 ```yaml
-- name:  'Automated Version Bump'
-  uses:  'phips28/gh-action-bump-version@master'
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
@@ -105,8 +107,8 @@ defaults to 'rc'). Example:
 string, case sensitive, coma separated  (optional). Example:
 
 ```yaml
-- name:  'Automated Version Bump'
-  uses:  'phips28/gh-action-bump-version@master'
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
@@ -121,8 +123,8 @@ string, case sensitive, coma separated  (optional). Example:
 (optional). Example:
 
 ```yaml
-- name:  'Automated Version Bump'
-  uses:  'phips28/gh-action-bump-version@master'
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     PACKAGEJSON_DIR:  'frontend'
@@ -133,8 +135,8 @@ Useful in cases such as updating the version on master after a tag has been set
 (optional). Example:
 
 ```yaml
-- name:  'Automated Version Bump'
-  uses:  'phips28/gh-action-bump-version@master'
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
@@ -145,8 +147,8 @@ Useful in cases such as updating the version on master after a tag has been set
 for skipping additional workflows run on push. Example:
 
 ```yaml
-- name:  'Automated Version Bump'
-  uses:  'phips28/gh-action-bump-version@master'
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
@@ -157,12 +159,25 @@ for skipping additional workflows run on push. Example:
 Example:
 
 ```yaml
-- name:  'Automated Version Bump'
-  uses:  'phips28/gh-action-bump-version@master'
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
     push: false
+```
+
+
+**skip-if-commit-contains:** Skip Version Bump Plus if the commit message contains the specified (case-insensitive) string
+Example:
+
+```yaml
+- name:  'Automated Version Bump Plus'
+  uses:  'mhillerstrom/gh-action-bump-version-plus@master'
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  with:
+    skip-if-commit-contains: dependabot
 ```
 
 ### Testing

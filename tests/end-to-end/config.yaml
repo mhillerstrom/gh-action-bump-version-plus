@@ -93,6 +93,53 @@ setups:
       - message: custom-pre
         expected:
           version: 1.0.1-pre.0
+  - name: skip-if-commit-contains
+    yaml:
+      name: Bump Version (Skip If Commit Contains)
+      on:
+        push:
+      jobs:
+        bump-version:
+          runs-on: ubuntu-latest
+          steps:
+            - uses: actions/checkout@v2
+            - run: echo "Bump Version (Skip If Commit Contains)"
+            - run: env
+            - id: version-bump
+              uses: ./action
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                skip-if-commit-contains: dependabot
+    tests:
+      - message: patch
+        expected:
+          version: 1.0.1
+      - message: patch (Dependabot)
+        expected:
+          skipTagCheck: true
+          version: 1.0.0
+      - message: minor
+        expected:
+          version: 1.1.0
+      - message: minor (Dependabot)
+        expected:
+          skipTagCheck: true
+          version: 1.0.0
+      - message: major
+        expected:
+          version: 2.0.0
+      - message: major (Dependabot)
+        expected:
+          skipTagCheck: true
+          version: 1.0.0
+      - message: pre-alpha
+        expected:
+          version: 1.0.1-alpha.0
+      - message: pre-alpha (Dependabot)
+        expected:
+          skipTagCheck: true
+          version: 1.0.0
   - name: null-default
     yaml:
       name: Bump Version (Default="Minor")
